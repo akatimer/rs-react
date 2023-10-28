@@ -2,6 +2,7 @@ import { Component } from 'react';
 import './MiddleSection.css';
 import Loader from '../Loader/Loader';
 import DataContext from '../Context/DataContext';
+import Catalog from '../Catalog/Catalog';
 
 class MiddleSection extends Component {
   declare context: React.ContextType<typeof DataContext>;
@@ -10,7 +11,7 @@ class MiddleSection extends Component {
     return (
       <>
         <h2>MiddleSection</h2>
-        {isLoading ? <Loader /> : <h2>DONE</h2>}
+        {isLoading ? <Loader /> : <Catalog />}
       </>
     );
   }
