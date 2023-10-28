@@ -3,24 +3,19 @@ export const getStarships: (
 ) => Promise<getStarshipsResultsType> = async (
   pageUrl = 'https://swapi.dev/api/starships/'
 ) => {
-  // const result = await axios({
-  //   method: 'GET',
-  //   url: 'https://swapi.dev/api/starships/',
-  // });
-
   const data = await fetch(pageUrl);
   const result = await data.json();
   return result;
 };
 
-type getStarshipsResultsType = {
+export type getStarshipsResultsType = {
   count: number;
   next: string | null;
   previous: string | null;
   results: starshipsType[];
 };
 
-type starshipsType = {
+export type starshipsType = {
   name: string;
   model: string;
   starship_class: string;
