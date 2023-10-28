@@ -1,10 +1,8 @@
 import { Component } from 'react';
 import './SearchPanel.css';
-import {
-  getStarships,
-  getStarshipsResultsType,
-} from '../../utils/api/getStarships';
+import { getStarshipsResultsType } from '../../utils/api/getStarships';
 import DataContext from '../Context/DataContext';
+import { searchStarships } from '../../utils/api/searchStarships';
 
 type searchPanelPropsType = {
   state: {
@@ -26,7 +24,8 @@ class SearchPanel extends Component<searchPanelPropsType, { value: string }> {
   }
 
   getData(): Promise<void | getStarshipsResultsType> {
-    const result = getStarships()
+    console.log(this.state.value);
+    const result = searchStarships(this.state.value)
       .then((res) => {
         return res;
       })
@@ -37,33 +36,30 @@ class SearchPanel extends Component<searchPanelPropsType, { value: string }> {
   }
 
   render() {
-    const { starshipsResult, setIsLoading, updateData } = this.context;
+    const { setIsLoading, updateData } = this.context;
 
     return (
-      <div>
+      <form
+        onSubmit={async (e) => {
+          e.preventDefault();
+          setIsLoading(true);
+          this.getData().then((res) => {
+            if (res) {
+              updateData(res.results);
+              console.log(res.results);
+              setIsLoading(false);
+            }
+          });
+        }}
+      >
         <input
           type="search"
           placeholder="Search"
           value={this.state.value}
           onChange={(e) => this.onChange(e)}
         />
-        <button
-          onClick={async () => {
-            setIsLoading(true);
-            this.getData().then((res) => {
-              console.log(321);
-              if (res) {
-                console.log(res);
-                updateData(res.results);
-                console.log(starshipsResult);
-                setIsLoading(false);
-              }
-            });
-          }}
-        >
-          Search
-        </button>
-      </div>
+        <button type="submit">Search</button>
+      </form>
     );
   }
 }

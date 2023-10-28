@@ -7,7 +7,7 @@ class TopSection extends Component {
     return (
       <>
         <h2>TopSection</h2>
-        <SearchPanel state={{ value: 'TestPropsValue' }} />
+        <SearchPanel state={{ value: 'Starship' }} />
       </>
     );
   }
