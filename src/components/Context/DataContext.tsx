@@ -4,9 +4,13 @@ import { starshipsType } from '../../utils/api/getStarships';
 const DataContext = React.createContext<{
   starshipsResult: starshipsType[];
   updateData: (result: starshipsType[]) => void;
+  isLoading: boolean;
+  setIsLoading: (status: boolean) => void;
 }>({
   starshipsResult: [],
   updateData: () => {},
+  isLoading: true,
+  setIsLoading: () => {},
 });
 
 interface DataProviderProps {
@@ -17,6 +21,7 @@ export class DataProvider extends Component<DataProviderProps> {
   state = {
     // searchValue: '',
     starshipsResult: [],
+    isLoading: true,
   };
 
   updateData = (result: starshipsType[]): void => {
@@ -24,14 +29,20 @@ export class DataProvider extends Component<DataProviderProps> {
     this.setState({ starshipsResult: result });
   };
 
+  setIsLoading = (status: boolean) => {
+    this.setState({ isLoading: status });
+  };
+
   render() {
-    const { starshipsResult } = this.state;
-    const { updateData } = this;
+    const { starshipsResult, isLoading } = this.state;
+    const { updateData, setIsLoading } = this;
     return (
       <DataContext.Provider
         value={{
           starshipsResult,
           updateData,
+          isLoading,
+          setIsLoading,
         }}
       >
         {this.props.children}

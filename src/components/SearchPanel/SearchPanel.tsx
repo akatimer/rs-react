@@ -37,7 +37,7 @@ class SearchPanel extends Component<searchPanelPropsType, { value: string }> {
   }
 
   render() {
-    const { starshipsResult, updateData } = this.context;
+    const { starshipsResult, setIsLoading, updateData } = this.context;
 
     return (
       <div>
@@ -49,12 +49,14 @@ class SearchPanel extends Component<searchPanelPropsType, { value: string }> {
         />
         <button
           onClick={async () => {
+            setIsLoading(true);
             this.getData().then((res) => {
               console.log(321);
               if (res) {
                 console.log(res);
                 updateData(res.results);
                 console.log(starshipsResult);
+                setIsLoading(false);
               }
             });
           }}
