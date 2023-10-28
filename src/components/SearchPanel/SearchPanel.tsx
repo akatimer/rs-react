@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import './SearchPanel.css';
+import { getStarships } from '../../utils/api/getStarships';
 
 type searchPanelPropsType = {
   state: {
@@ -19,6 +20,16 @@ class SearchPanel extends Component<searchPanelPropsType, { value: string }> {
     this.setState({ value: e.target.value });
   }
 
+  getData() {
+    getStarships()
+      .then((result) => {
+        console.log(result);
+      })
+      .catch(() => {
+        console.error();
+      });
+  }
+
   render() {
     return (
       <div>
@@ -28,7 +39,7 @@ class SearchPanel extends Component<searchPanelPropsType, { value: string }> {
           value={this.state.value}
           onChange={(e) => this.onChange(e)}
         />
-        <button>Search</button>
+        <button onClick={this.getData}>Search</button>
       </div>
     );
   }
