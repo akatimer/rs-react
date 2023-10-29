@@ -1,0 +1,21 @@
+.card {
+  width: 23%;
+  margin: 5px;
+  border: solid 1px orange;
+  font-size: 12px;
+  min-width: 235px;
+  border-radius: 8px;
+}
+
+.card__line {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.card:hover,
+.card:focus {
+  transition: 1s;
+  box-shadow: 0 0 8px orange;
+  transform: translateY(-0.25em);
+}
