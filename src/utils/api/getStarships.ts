@@ -5,7 +5,6 @@ export const getStarships: (
 ) => {
   const data = await fetch(pageUrl);
   const result = await data.json();
-  console.log(result);
   return result;
 };
 

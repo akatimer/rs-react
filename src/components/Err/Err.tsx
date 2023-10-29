@@ -1,8 +1,3 @@
-// function Err() {
-//   throw new Error('Error!!!');
-//   return <div></div>;
-// }
-
 import { Component } from 'react';
 
 class Err extends Component {

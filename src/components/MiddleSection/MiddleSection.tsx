@@ -12,13 +12,11 @@ class MiddleSection extends Component {
   componentDidMount(): void {
     if (this.context.searchValue) {
       searchStarships(this.context.searchValue).then((res) => {
-        console.log(res);
         this.context.updateData(res.results);
         this.context.setIsLoading(false);
       });
     } else {
       getStarships().then((res) => {
-        console.log(res);
         this.context.updateData(res.results);
         this.context.setIsLoading(false);
       });

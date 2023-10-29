@@ -24,14 +24,9 @@ class SearchPanel extends Component<searchPanelPropsType, { value: string }> {
   }
 
   getData(): Promise<void | getStarshipsResultsType> {
-    console.log(this.state.value);
-    const result = searchStarships(this.state.value)
-      .then((res) => {
-        return res;
-      })
-      .catch(() => {
-        console.error();
-      });
+    const result = searchStarships(this.state.value).then((res) => {
+      return res;
+    });
     return result;
   }
 
@@ -49,7 +44,6 @@ class SearchPanel extends Component<searchPanelPropsType, { value: string }> {
           this.getData().then((res) => {
             if (res) {
               updateData(res.results);
-              console.log(res.results);
               setIsLoading(false);
             }
           });

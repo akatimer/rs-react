@@ -6,6 +6,5 @@ export const searchStarships: (
   const pageUrl = `https://swapi.dev/api/starships/?search=`;
   const data = await fetch(pageUrl + searchValue);
   const result = await data.json();
-  console.log(result);
   return result;
 };
