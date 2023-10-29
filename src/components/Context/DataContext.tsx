@@ -6,11 +6,15 @@ const DataContext = React.createContext<{
   updateData: (result: starshipsType[]) => void;
   isLoading: boolean;
   setIsLoading: (status: boolean) => void;
+  searchValue: string;
+  updateSearchValue: (searchValue: string) => void;
 }>({
   starshipsResult: [],
   updateData: () => {},
   isLoading: true,
   setIsLoading: () => {},
+  searchValue: '',
+  updateSearchValue: () => {},
 });
 
 interface DataProviderProps {
@@ -19,13 +23,12 @@ interface DataProviderProps {
 
 export class DataProvider extends Component<DataProviderProps> {
   state = {
-    // searchValue: '',
+    searchValue: localStorage.getItem('starshipSearch') || '',
     starshipsResult: [],
     isLoading: true,
   };
 
   updateData = (result: starshipsType[]): void => {
-    console.log(555);
     this.setState({ starshipsResult: result });
   };
 
@@ -33,9 +36,15 @@ export class DataProvider extends Component<DataProviderProps> {
     this.setState({ isLoading: status });
   };
 
+  updateSearchValue = (searchValue: string) => {
+    localStorage.setItem('starshipSearch', searchValue);
+    this.setState({ searchValue: searchValue });
+  };
+
   render() {
-    const { starshipsResult, isLoading } = this.state;
-    const { updateData, setIsLoading } = this;
+    const { starshipsResult, isLoading, searchValue } = this.state;
+    const { updateData, setIsLoading, updateSearchValue } = this;
+
     return (
       <DataContext.Provider
         value={{
@@ -43,6 +52,8 @@ export class DataProvider extends Component<DataProviderProps> {
           updateData,
           isLoading,
           setIsLoading,
+          searchValue,
+          updateSearchValue,
         }}
       >
         {this.props.children}

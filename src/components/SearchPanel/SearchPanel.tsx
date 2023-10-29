@@ -36,7 +36,7 @@ class SearchPanel extends Component<searchPanelPropsType, { value: string }> {
   }
 
   render() {
-    const { setIsLoading, updateData } = this.context;
+    const { updateSearchValue, setIsLoading, updateData } = this.context;
 
     return (
       <form
@@ -44,6 +44,8 @@ class SearchPanel extends Component<searchPanelPropsType, { value: string }> {
         onSubmit={async (e) => {
           e.preventDefault();
           setIsLoading(true);
+          updateSearchValue(this.state.value);
+
           this.getData().then((res) => {
             if (res) {
               updateData(res.results);
