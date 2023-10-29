@@ -8,12 +8,7 @@ class MiddleSection extends Component {
   declare context: React.ContextType<typeof DataContext>;
   render() {
     const { isLoading } = this.context;
-    return (
-      <>
-        <h2>MiddleSection</h2>
-        {isLoading ? <Loader /> : <Catalog />}
-      </>
-    );
+    return <>{isLoading ? <Loader /> : <Catalog />}</>;
   }
 }
 

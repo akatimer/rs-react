@@ -4,12 +4,7 @@ import SearchPanel from '../SearchPanel/SearchPanel';
 
 class TopSection extends Component {
   render() {
-    return (
-      <>
-        <h2>TopSection</h2>
-        <SearchPanel state={{ value: 'Starship' }} />
-      </>
-    );
+    return <SearchPanel state={{ value: 'Starship' }} />;
   }
 }
 

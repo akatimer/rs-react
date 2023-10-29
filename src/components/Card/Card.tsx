@@ -42,45 +42,45 @@ class Card extends Component<cardStateType, cardStateType> {
 
   render() {
     return (
-      <div>
-        <div>
-          <h3>Name:</h3>
+      <div className="card">
+        <div className="card__line">
+          <h3>Name: </h3>
           <h3>{this.state.name}</h3>
         </div>
-        <div>
-          <h3>Model:</h3>
+        <div className="card__line">
+          <h3>Model: </h3>
           <h3>{this.state.model}</h3>
         </div>
-        <div>
-          <h3>Starship_class:</h3>
+        <div className="card__line">
+          <h3>Starship_class: </h3>
           <h3>{this.state.starship_class}</h3>
         </div>
-        <div>
-          <h3>Cost_in_credits:</h3>
+        <div className="card__line">
+          <h3>Cost_in_credits: </h3>
           <h3>{this.state.cost_in_credits}</h3>
         </div>
-        <div>
-          <h3>Length:</h3>
+        <div className="card__line">
+          <h3>Length: </h3>
           <h3>{this.state.length}</h3>
         </div>
-        <div>
-          <h3>Crew:</h3>
+        <div className="card__line">
+          <h3>Crew: </h3>
           <h3>{this.state.crew}</h3>
         </div>
-        <div>
-          <h3>Passengers:</h3>
+        <div className="card__line">
+          <h3>Passengers: </h3>
           <h3>{this.state.passengers}</h3>
         </div>
-        <div>
-          <h3>Max_atmosphering_speed:</h3>
+        <div className="card__line">
+          <h3>Max_atm_speed: </h3>
           <h3>{this.state.max_atmosphering_speed}</h3>
         </div>
-        <div>
-          <h3>MGLT:</h3>
+        <div className="card__line">
+          <h3>MGLT: </h3>
           <h3>{this.state.MGLT}</h3>
         </div>
-        <div>
-          <h3>Cargo_capacity:</h3>
+        <div className="card__line">
+          <h3>Cargo_capacity: </h3>
           <h3>{this.state.cargo_capacity}</h3>
         </div>
       </div>

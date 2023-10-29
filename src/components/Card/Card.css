@@ -1,0 +1,12 @@
+.card {
+  width: 25%;
+  margin: 5px;
+  border: solid 1px;
+  font-size: 12px;
+}
+
+.card__line {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

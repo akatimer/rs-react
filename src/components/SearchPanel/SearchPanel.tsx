@@ -40,6 +40,7 @@ class SearchPanel extends Component<searchPanelPropsType, { value: string }> {
 
     return (
       <form
+        className="search-form"
         onSubmit={async (e) => {
           e.preventDefault();
           setIsLoading(true);
@@ -53,12 +54,15 @@ class SearchPanel extends Component<searchPanelPropsType, { value: string }> {
         }}
       >
         <input
+          className="search-form__input"
           type="search"
           placeholder="Search"
           value={this.state.value}
           onChange={(e) => this.onChange(e)}
         />
-        <button type="submit">Search</button>
+        <button className="search-form__button" type="submit">
+          Search
+        </button>
       </form>
     );
   }
