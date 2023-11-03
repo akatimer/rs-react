@@ -5,9 +5,9 @@ import DataContext from '../Context/DataContext';
 import Catalog from '../Catalog/Catalog';
 
 const MiddleSection: React.FC = (): JSX.Element => {
-  const context = useContext(DataContext);
+  const { isLoading } = useContext(DataContext);
 
-  return <>{context.isLoading ? <Loader /> : <Catalog />}</>;
+  return <>{isLoading ? <Loader /> : <Catalog />}</>;
 };
 
 export default MiddleSection;
