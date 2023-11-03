@@ -1,65 +1,49 @@
-import React, { Component, ReactNode } from 'react';
+import React, { Dispatch, ReactNode, SetStateAction, useState } from 'react';
 import { starshipsType } from '../../utils/api/getStarships';
 
 const DataContext = React.createContext<{
   starshipsResult: starshipsType[];
-  updateData: (result: starshipsType[]) => void;
+  setStarshipsResult: Dispatch<SetStateAction<starshipsType[]>>;
   isLoading: boolean;
-  setIsLoading: (status: boolean) => void;
+  setIsLoading: Dispatch<SetStateAction<boolean>>;
   searchValue: string;
-  updateSearchValue: (searchValue: string) => void;
+  setSearchValue: Dispatch<SetStateAction<string>>;
 }>({
   starshipsResult: [],
-  updateData: () => {},
+  setStarshipsResult: () => {},
   isLoading: true,
   setIsLoading: () => {},
   searchValue: '',
-  updateSearchValue: () => {},
+  setSearchValue: () => {},
 });
 
 interface DataProviderProps {
   children: ReactNode;
 }
 
-export class DataProvider extends Component<DataProviderProps> {
-  state = {
-    searchValue: localStorage.getItem('starshipSearch') || '',
-    starshipsResult: [],
-    isLoading: true,
-  };
+export const DataProvider: React.FC<DataProviderProps> = ({
+  children,
+}): JSX.Element => {
+  const [searchValue, setSearchValue] = useState<string>(
+    localStorage.getItem('starshipSearch') || ''
+  );
+  const [starshipsResult, setStarshipsResult] = useState<starshipsType[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  updateData = (result: starshipsType[]): void => {
-    this.setState({ starshipsResult: result });
-  };
-
-  setIsLoading = (status: boolean) => {
-    this.setState({ isLoading: status });
-  };
-
-  updateSearchValue = (searchValue: string) => {
-    localStorage.setItem('starshipSearch', searchValue);
-    this.setState({ searchValue: searchValue });
-  };
-
-  render() {
-    const { starshipsResult, isLoading, searchValue } = this.state;
-    const { updateData, setIsLoading, updateSearchValue } = this;
-
-    return (
-      <DataContext.Provider
-        value={{
-          starshipsResult,
-          updateData,
-          isLoading,
-          setIsLoading,
-          searchValue,
-          updateSearchValue,
-        }}
-      >
-        {this.props.children}
-      </DataContext.Provider>
-    );
-  }
-}
+  return (
+    <DataContext.Provider
+      value={{
+        starshipsResult,
+        setStarshipsResult,
+        isLoading,
+        setIsLoading,
+        searchValue,
+        setSearchValue,
+      }}
+    >
+      {children}
+    </DataContext.Provider>
+  );
+};
 
 export default DataContext;
