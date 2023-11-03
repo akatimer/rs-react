@@ -1,69 +1,52 @@
-import { Component } from 'react';
+import { useContext } from 'react';
 import './SearchPanel.css';
 import { getStarshipsResultsType } from '../../utils/api/getStarships';
 import DataContext from '../Context/DataContext';
 import { searchStarships } from '../../utils/api/searchStarships';
 
-type searchPanelPropsType = {
-  state: {
-    value: string;
+const SearchPanel: React.FC = (): JSX.Element => {
+  const { searchValue, setSearchValue, setIsLoading, setStarshipsResult } =
+    useContext(DataContext);
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(e.target.value);
   };
-};
 
-class SearchPanel extends Component<searchPanelPropsType, { value: string }> {
-  declare context: React.ContextType<typeof DataContext>;
-  constructor(props: searchPanelPropsType) {
-    super(props);
-    this.state = {
-      value: props.state.value,
-    };
-  }
-
-  onChange(e: React.ChangeEvent<HTMLInputElement>) {
-    this.setState({ value: e.target.value });
-  }
-
-  getData(): Promise<void | getStarshipsResultsType> {
-    const result = searchStarships(this.state.value).then((res) => {
+  const getData = (): Promise<void | getStarshipsResultsType> => {
+    const result = searchStarships(searchValue).then((res) => {
       return res;
     });
     return result;
-  }
+  };
 
-  render() {
-    const { updateSearchValue, setIsLoading, updateData } = this.context;
-
-    return (
-      <form
-        className="search-form"
-        onSubmit={async (e) => {
-          e.preventDefault();
-          setIsLoading(true);
-          updateSearchValue(this.state.value);
-
-          this.getData().then((res) => {
-            if (res) {
-              updateData(res.results);
-              setIsLoading(false);
-            }
-          });
-        }}
-      >
-        <input
-          className="search-form__input"
-          type="search"
-          placeholder="Search"
-          value={this.state.value}
-          onChange={(e) => this.onChange(e)}
-        />
-        <button className="search-form__button" type="submit">
-          Search
-        </button>
-      </form>
-    );
-  }
-}
-
-SearchPanel.contextType = DataContext;
+  return (
+    <form
+      className="search-form"
+      onSubmit={async (e) => {
+        e.preventDefault();
+        setIsLoading(true);
+        setSearchValue(searchValue);
+        localStorage.setItem('starshipSearch', searchValue);
+        getData().then((res) => {
+          if (res) {
+            setStarshipsResult(res.results);
+            setIsLoading(false);
+          }
+        });
+      }}
+    >
+      <input
+        className="search-form__input"
+        type="search"
+        placeholder="Search"
+        value={searchValue}
+        onChange={(e) => onChange(e)}
+      />
+      <button className="search-form__button" type="submit">
+        Search
+      </button>
+    </form>
+  );
+};
 
 export default SearchPanel;

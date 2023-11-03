@@ -1,5 +1,12 @@
-import React, { Dispatch, ReactNode, SetStateAction, useState } from 'react';
-import { starshipsType } from '../../utils/api/getStarships';
+import React, {
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  useEffect,
+  useState,
+} from 'react';
+import { getStarships, starshipsType } from '../../utils/api/getStarships';
+import { searchStarships } from '../../utils/api/searchStarships';
 
 const DataContext = React.createContext<{
   starshipsResult: starshipsType[];
@@ -29,6 +36,22 @@ export const DataProvider: React.FC<DataProviderProps> = ({
   );
   const [starshipsResult, setStarshipsResult] = useState<starshipsType[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    if (localStorage.getItem('starshipSearch')) {
+      searchStarships(`${localStorage.getItem('starshipSearch')}`).then(
+        (res) => {
+          setStarshipsResult(res.results);
+          setIsLoading(false);
+        }
+      );
+    } else {
+      getStarships().then((res) => {
+        setStarshipsResult(res.results);
+        setIsLoading(false);
+      });
+    }
+  }, []);
 
   return (
     <DataContext.Provider
