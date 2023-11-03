@@ -1,14 +1,12 @@
-import { Component } from 'react';
+import React from 'react';
 
-class Err extends Component {
-  errFunc() {
+const Err: React.FC = (): JSX.Element => {
+  const errFunc = () => {
     throw new Error('Error!!!');
     return <div></div>;
-  }
+  };
 
-  render() {
-    return <div>{this.errFunc()}</div>;
-  }
-}
+  return <div>{errFunc()}</div>;
+};
 
 export default Err;
