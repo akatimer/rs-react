@@ -1,17 +1,13 @@
 import './App.css';
-import TopSection from '../TopSection/TopSection';
-import MiddleSection from '../MiddleSection/MiddleSection';
 import { DataProvider } from '../Context/DataContext';
+import { RouterProvider } from 'react-router-dom';
+import router from '../Router/Router';
 
 const App: React.FC = (): JSX.Element => {
   return (
-    <>
-      <h1>Starship Searcher</h1>
-      <DataProvider>
-        <TopSection />
-        <MiddleSection />
-      </DataProvider>
-    </>
+    <DataProvider>
+      <RouterProvider router={router} />
+    </DataProvider>
   );
 };
 
