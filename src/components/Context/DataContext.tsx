@@ -5,19 +5,20 @@ import React, {
   useEffect,
   useState,
 } from 'react';
-import { getStarships, starshipsType } from '../../utils/api/getStarships';
-import { searchStarships } from '../../utils/api/searchStarships';
+import { MangaResponseData } from '../../utils/api/apiTypes';
+import { searchManga } from '../../utils/api/searchManga';
+import { getAllManga } from '../../utils/api/getManga';
 
 const DataContext = React.createContext<{
-  starshipsResult: starshipsType[];
-  setStarshipsResult: Dispatch<SetStateAction<starshipsType[]>>;
+  mangaResult: MangaResponseData[];
+  setMangaResult: Dispatch<SetStateAction<MangaResponseData[]>>;
   isLoading: boolean;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
   searchValue: string;
   setSearchValue: Dispatch<SetStateAction<string>>;
 }>({
-  starshipsResult: [],
-  setStarshipsResult: () => {},
+  mangaResult: [],
+  setMangaResult: () => {},
   isLoading: true,
   setIsLoading: () => {},
   searchValue: '',
@@ -32,22 +33,20 @@ export const DataProvider: React.FC<DataProviderProps> = ({
   children,
 }): JSX.Element => {
   const [searchValue, setSearchValue] = useState<string>(
-    localStorage.getItem('starshipSearch') || ''
+    localStorage.getItem('mangaSearch') || ''
   );
-  const [starshipsResult, setStarshipsResult] = useState<starshipsType[]>([]);
+  const [mangaResult, setMangaResult] = useState<MangaResponseData[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    if (localStorage.getItem('starshipSearch')) {
-      searchStarships(`${localStorage.getItem('starshipSearch')}`).then(
-        (res) => {
-          setStarshipsResult(res.results);
-          setIsLoading(false);
-        }
-      );
+    if (localStorage.getItem('mangaSearch')) {
+      searchManga(`${localStorage.getItem('mangaSearch')}`).then((res) => {
+        setMangaResult(res.data);
+        setIsLoading(false);
+      });
     } else {
-      getStarships().then((res) => {
-        setStarshipsResult(res.results);
+      getAllManga().then((res) => {
+        setMangaResult(res.data);
         setIsLoading(false);
       });
     }
@@ -56,8 +55,8 @@ export const DataProvider: React.FC<DataProviderProps> = ({
   return (
     <DataContext.Provider
       value={{
-        starshipsResult,
-        setStarshipsResult,
+        mangaResult,
+        setMangaResult,
         isLoading,
         setIsLoading,
         searchValue,

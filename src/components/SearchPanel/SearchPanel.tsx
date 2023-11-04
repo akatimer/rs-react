@@ -1,19 +1,19 @@
 import { useContext } from 'react';
 import './SearchPanel.css';
-import { getStarshipsResultsType } from '../../utils/api/getStarships';
 import DataContext from '../Context/DataContext';
-import { searchStarships } from '../../utils/api/searchStarships';
+import { searchManga } from '../../utils/api/searchManga';
+import { MangaResponseType } from '../../utils/api/apiTypes';
 
 const SearchPanel: React.FC = (): JSX.Element => {
-  const { searchValue, setSearchValue, setIsLoading, setStarshipsResult } =
+  const { searchValue, setSearchValue, setIsLoading, setMangaResult } =
     useContext(DataContext);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
   };
 
-  const getData = (): Promise<void | getStarshipsResultsType> => {
-    const result = searchStarships(searchValue).then((res) => {
+  const getData = (): Promise<void | MangaResponseType> => {
+    const result = searchManga(searchValue).then((res) => {
       return res;
     });
     return result;
@@ -26,10 +26,11 @@ const SearchPanel: React.FC = (): JSX.Element => {
         e.preventDefault();
         setIsLoading(true);
         setSearchValue(searchValue);
-        localStorage.setItem('starshipSearch', searchValue);
+        localStorage.setItem('mangaSearch', searchValue);
         getData().then((res) => {
           if (res) {
-            setStarshipsResult(res.results);
+            setMangaResult(res.data);
+            console.log(res.data);
             setIsLoading(false);
           }
         });
