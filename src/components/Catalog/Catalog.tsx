@@ -1,19 +1,35 @@
-import { useContext } from 'react';
 import './Catalog.css';
-import DataContext from '../Context/DataContext';
 import Card from '../Card/Card';
+import { getAllManga } from '../../utils/api/getManga';
+import { Await, defer, useLoaderData } from 'react-router-dom';
+import { MangaResponseData, MangaResponseType } from '../../utils/api/apiTypes';
+import Loader from '../Loader/Loader';
+import { Suspense } from 'react';
+
+type MangaPromise = {
+  data: Promise<MangaResponseType>;
+};
 
 const Catalog: React.FC = (): JSX.Element => {
-  const { mangaResult } = useContext(DataContext);
-
-  const cards = mangaResult;
+  const { data } = useLoaderData() as MangaPromise;
+  console.log(data);
   return (
-    <div className="catalog">
-      {cards.map((card) => (
-        <Card key={card.mal_id} {...card} />
-      ))}
-    </div>
+    <Suspense fallback={<Loader />}>
+      <Await resolve={data}>
+        {(mangaCards) => (
+          <div className="catalog">
+            {mangaCards.data.map((card: MangaResponseData) => (
+              <Card key={card.mal_id} {...card} />
+            ))}
+          </div>
+        )}
+      </Await>
+    </Suspense>
   );
+};
+
+export const mangaLoader = async () => {
+  return defer({ data: getAllManga() });
 };
 
 export default Catalog;

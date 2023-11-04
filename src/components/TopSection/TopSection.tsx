@@ -8,6 +8,7 @@ const TopSection: React.FC = (): JSX.Element => {
 
   return (
     <>
+      <h1>Manga Searcher</h1>
       <button
         onClick={() => {
           setNewErr(true);

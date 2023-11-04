@@ -1,12 +1,15 @@
 import TopSection from '../TopSection/TopSection';
-import MiddleSection from '../MiddleSection/MiddleSection';
+import { Outlet } from 'react-router-dom';
 
 const MainPage: React.FC = (): JSX.Element => {
   return (
     <>
-      <h1>Manga Searcher</h1>
-      <TopSection />
-      <MiddleSection />
+      <header>
+        <TopSection />
+      </header>
+      <main className="container">
+        <Outlet />
+      </main>
     </>
   );
 };

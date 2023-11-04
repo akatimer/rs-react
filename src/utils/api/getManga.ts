@@ -6,6 +6,7 @@ export const getAllManga: (
   pageUrl = 'https://api.jikan.moe/v4/manga'
 ) => {
   const data = await fetch(pageUrl);
-  const result = await data.json();
+  const result = data.json();
+  console.log(result);
   return result;
 };
