@@ -12,6 +12,7 @@
   font-size: 11px;
   padding: 3vw;
   border-left: 1px solid orange;
+  z-index: 7;
 }
 
 .card__detailed__img {
@@ -26,4 +27,12 @@
 .card__line__synopsys {
   display: flex;
   flex-direction: column;
+}
+
+.close_wrapper {
+  top: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
 }
