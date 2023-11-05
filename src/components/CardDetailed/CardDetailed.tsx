@@ -23,7 +23,7 @@ const CardDetailed: React.FC = (): JSX.Element => {
   const navigation = useNavigate();
 
   return (
-    <div className="card__detailed">
+    <div className="card__detailed loader_detailed">
       <Suspense fallback={<Loader />}>
         <Await resolve={data}>
           {(data) => {
