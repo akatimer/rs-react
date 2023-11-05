@@ -17,8 +17,8 @@ const CardDetailed: React.FC = (): JSX.Element => {
         {(data) => {
           console.log(data);
           return (
-            <div key={data.data.mal_id} className="card">
-              <div className="card__img">
+            <div key={data.data.mal_id} className="card__detailed">
+              <div className="card__detailed__img">
                 <img src={data.data.images.webp.image_url} />
               </div>
               <div className="card__info">
@@ -34,7 +34,7 @@ const CardDetailed: React.FC = (): JSX.Element => {
                   <h3>Status: </h3>
                   <h3>{data.data.status}</h3>
                 </div>
-                <div className="card__line">
+                <div className="card__line__synopsys">
                   <h3>Synopsys: </h3>
                   <h3>{data.data.synopsis || '---'}</h3>
                 </div>

@@ -1,0 +1,29 @@
+.card__detailed {
+  display: flex;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 50vw;
+  background: black;
+  height: 100vh;
+  margin: 0;
+  flex-direction: column;
+  justify-content: flex-start;
+  font-size: 11px;
+  padding: 3vw;
+  border-left: 1px solid orange;
+}
+
+.card__detailed__img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: auto;
+  margin-top: 50px;
+}
+
+.card__line__synopsys {
+  display: flex;
+  flex-direction: column;
+}
