@@ -10,9 +10,7 @@ const Limit: React.FC = (): JSX.Element => {
         className="limits__button"
         onClick={() => {
           navigate(
-            `/limit/${12}/page/${page}/term/${localStorage.getItem(
-              'mangaSearch'
-            )}`
+            `/limit/${12}/page/1/term/${localStorage.getItem('mangaSearch')}`
           );
         }}
       >
@@ -23,9 +21,7 @@ const Limit: React.FC = (): JSX.Element => {
         className="limits__button"
         onClick={() => {
           navigate(
-            `/limit/${15}/page/${page}/term/${localStorage.getItem(
-              'mangaSearch'
-            )}`
+            `/limit/${15}/page/1/term/${localStorage.getItem('mangaSearch')}`
           );
         }}
       >
@@ -35,9 +31,7 @@ const Limit: React.FC = (): JSX.Element => {
         className="limits__button"
         onClick={() => {
           navigate(
-            `/limit/${18}/page/${page}/term/${localStorage.getItem(
-              'mangaSearch'
-            )}`
+            `/limit/${18}/page/1/term/${localStorage.getItem('mangaSearch')}`
           );
         }}
       >
@@ -47,9 +41,7 @@ const Limit: React.FC = (): JSX.Element => {
         className="limits__button"
         onClick={() => {
           navigate(
-            `/limit/${21}/page/${page}/term/${localStorage.getItem(
-              'mangaSearch'
-            )}`
+            `/limit/${21}/page/1/term/${localStorage.getItem('mangaSearch')}`
           );
         }}
       >

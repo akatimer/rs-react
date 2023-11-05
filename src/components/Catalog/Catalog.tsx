@@ -5,30 +5,38 @@ import { MangaResponseData, MangaResponseType } from '../../utils/api/apiTypes';
 import Loader from '../Loader/Loader';
 import { Suspense } from 'react';
 import { searchManga } from '../../utils/api/searchManga';
+import Pagination from '../Pagination/Pagination';
 
-type MangaPromise = {
+export type MangaPromise = {
   data: Promise<MangaResponseType>;
 };
 
 const Catalog: React.FC = (): JSX.Element => {
   const { data } = useLoaderData() as MangaPromise;
+
   return (
     <Suspense fallback={<Loader />}>
       <Await resolve={data}>
-        {(mangaCards) => (
-          <div className="catalog">
-            {mangaCards.data.map((card: MangaResponseData) => (
-              <Card key={card.mal_id} {...card} />
-            ))}
-          </div>
-        )}
+        {(mangaCards) => {
+          return (
+            <>
+              <div className="catalog">
+                {console.log(mangaCards)}
+                {mangaCards.data.map((card: MangaResponseData) => (
+                  <Card key={card.mal_id} {...card} />
+                ))}
+              </div>
+              <Pagination />
+            </>
+          );
+        }}
       </Await>
     </Suspense>
   );
 };
 
 export const mangaLoader: LoaderFunction = async ({ params }) => {
-  console.log(params.limit, params.page, params.term);
+  console.log(123, params.limit, params.page, params.term);
   return defer({ data: searchManga(params.limit, params.page, params.term) });
 };
 

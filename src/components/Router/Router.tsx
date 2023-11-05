@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { Navigate, createBrowserRouter } from 'react-router-dom';
 import MainPage from '../MainPage/MainPage';
 import MiddleSection from '../MiddleSection/MiddleSection';
 import { mangaLoader } from '../Catalog/Catalog';
@@ -10,12 +10,19 @@ const router = createBrowserRouter([
     errorElement: <div>404</div>,
     children: [
       {
-        index: true,
-        element: <MiddleSection />,
-        loader: mangaLoader,
+        path: '',
+        element: (
+          <Navigate
+            to={
+              localStorage.getItem('mangaSearch')
+                ? `/limit/25/page/1/term/${localStorage.getItem('mangaSearch')}`
+                : `/limit/25/page/1/term/`
+            }
+          />
+        ),
       },
       {
-        path: '/limit/:limit/page?/:page?/term?/:term?',
+        path: `/limit/:limit/page/:page/term/:term`,
         element: <MiddleSection />,
         loader: mangaLoader,
       },
