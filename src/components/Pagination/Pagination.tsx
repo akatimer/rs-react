@@ -9,7 +9,6 @@ const Pagination: React.FC = (): JSX.Element => {
   return (
     <Await resolve={data}>
       {(data) => {
-        console.log(312, limit, page, term);
         return (
           <div className="pagination">
             <Link

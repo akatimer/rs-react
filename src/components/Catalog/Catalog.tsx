@@ -21,7 +21,6 @@ const Catalog: React.FC = (): JSX.Element => {
           return (
             <>
               <div className="catalog">
-                {console.log(mangaCards)}
                 {mangaCards.data.map((card: MangaResponseData) => (
                   <Card key={card.mal_id} {...card} />
                 ))}
@@ -36,7 +35,6 @@ const Catalog: React.FC = (): JSX.Element => {
 };
 
 export const mangaLoader: LoaderFunction = async ({ params }) => {
-  console.log(123, params.limit, params.page, params.term);
   return defer({ data: searchManga(params.limit, params.page, params.term) });
 };
 
