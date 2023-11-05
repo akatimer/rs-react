@@ -1,18 +1,9 @@
 import React, { Dispatch, ReactNode, SetStateAction, useState } from 'react';
-import { MangaResponseData } from '../../utils/api/apiTypes';
 
 const DataContext = React.createContext<{
-  mangaResult: MangaResponseData[];
-  setMangaResult: Dispatch<SetStateAction<MangaResponseData[]>>;
-  isLoading: boolean;
-  setIsLoading: Dispatch<SetStateAction<boolean>>;
   searchValue: string;
   setSearchValue: Dispatch<SetStateAction<string>>;
 }>({
-  mangaResult: [],
-  setMangaResult: () => {},
-  isLoading: true,
-  setIsLoading: () => {},
   searchValue: '',
   setSearchValue: () => {},
 });
@@ -27,30 +18,10 @@ export const DataProvider: React.FC<DataProviderProps> = ({
   const [searchValue, setSearchValue] = useState<string>(
     localStorage.getItem('mangaSearch') || ''
   );
-  const [mangaResult, setMangaResult] = useState<MangaResponseData[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-
-  // useEffect(() => {
-  //   if (localStorage.getItem('mangaSearch')) {
-  //     searchManga(`${localStorage.getItem('mangaSearch')}`).then((res) => {
-  //       setMangaResult(res.data);
-  //       setIsLoading(false);
-  //     });
-  //   } else {
-  //     getAllManga().then((res) => {
-  //       setMangaResult(res.data);
-  //       setIsLoading(false);
-  //     });
-  //   }
-  // }, []);
 
   return (
     <DataContext.Provider
       value={{
-        mangaResult,
-        setMangaResult,
-        isLoading,
-        setIsLoading,
         searchValue,
         setSearchValue,
       }}

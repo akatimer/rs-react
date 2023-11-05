@@ -12,7 +12,6 @@ type MangaPromise = {
 
 const Catalog: React.FC = (): JSX.Element => {
   const { data } = useLoaderData() as MangaPromise;
-  console.log(data);
   return (
     <Suspense fallback={<Loader />}>
       <Await resolve={data}>
@@ -30,7 +29,7 @@ const Catalog: React.FC = (): JSX.Element => {
 
 export const mangaLoader: LoaderFunction = async ({ params }) => {
   console.log(params.limit, params.page, params.term);
-  return defer({ data: searchManga() });
+  return defer({ data: searchManga(params.limit, params.page, params.term) });
 };
 
 export default Catalog;
