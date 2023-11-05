@@ -1,58 +1,62 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import './Limit.css';
 
-const App: React.FC = (): JSX.Element => {
+const Limit: React.FC = (): JSX.Element => {
   const navigate = useNavigate();
   const { page } = useParams();
   return (
     <div className="limits">
       <button
         className="limits__button"
-        content="9"
         onClick={() => {
           navigate(
-            `/limit/${25}/page/${page}/term/${localStorage.getItem(
+            `/limit/${12}/page/${page}/term/${localStorage.getItem(
               'mangaSearch'
             )}`
           );
         }}
-      />
+      >
+        {12}
+      </button>
+
       <button
         className="limits__button"
-        content="12"
         onClick={() => {
           navigate(
-            `/limit/${25}/page/${page}/term/${localStorage.getItem(
+            `/limit/${15}/page/${page}/term/${localStorage.getItem(
               'mangaSearch'
             )}`
           );
         }}
-      />
+      >
+        {15}
+      </button>
       <button
         className="limits__button"
-        content="15"
         onClick={() => {
           navigate(
-            `/limit/${25}/page/${page}/term/${localStorage.getItem(
+            `/limit/${18}/page/${page}/term/${localStorage.getItem(
               'mangaSearch'
             )}`
           );
         }}
-      />
+      >
+        {18}
+      </button>
       <button
         className="limits__button"
-        content="18"
         onClick={() => {
           navigate(
-            `/limit/${25}/page/${page}/term/${localStorage.getItem(
+            `/limit/${21}/page/${page}/term/${localStorage.getItem(
               'mangaSearch'
             )}`
           );
         }}
-      />
+      >
+        {21}
+      </button>
       <button
         className="limits__button"
-        content="25"
         onClick={() => {
           navigate(
             `/limit/${25}/page/${page}/term/${localStorage.getItem(
@@ -60,9 +64,11 @@ const App: React.FC = (): JSX.Element => {
             )}`
           );
         }}
-      />
+      >
+        {25}
+      </button>
     </div>
   );
 };
 
-export default App;
+export default Limit;
