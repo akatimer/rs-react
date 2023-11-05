@@ -6,7 +6,7 @@ export const searchManga: (
   page?: string,
   searchTerm?: string
 ) => Promise<MangaResponseType> = async (
-  itemsOnPage = '25',
+  itemsOnPage = '15',
   page = '1',
   searchTerm
 ) => {

@@ -15,7 +15,7 @@ const router = createBrowserRouter([
         loader: mangaLoader,
       },
       {
-        path: '/limit/:limit/page/:page/term/:term',
+        path: '/limit/:limit/page?/:page?/term?/:term?',
         element: <MiddleSection />,
         loader: mangaLoader,
       },
