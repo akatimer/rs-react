@@ -24,7 +24,6 @@ const CardDetailed: React.FC = (): JSX.Element => {
     <Suspense fallback={<Loader />}>
       <Await resolve={data}>
         {(data) => {
-          console.log(data);
           return (
             <div key={data.data.mal_id} className="card__detailed">
               <Link

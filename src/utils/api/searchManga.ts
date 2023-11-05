@@ -20,7 +20,6 @@ export const searchManga: (
   if (searchTerm) {
     requestUrl = requestUrl + `&q=${searchTerm}`;
   }
-  console.log(requestUrl, 'requestUrl');
   const data = await fetch(requestUrl);
   const result = await data.json();
   return result;

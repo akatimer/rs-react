@@ -6,6 +6,5 @@ export const getAllManga: (
 ) => Promise<MangaResponseType> = async (pageUrl = BASE_URL) => {
   const data = await fetch(pageUrl);
   const result = data.json();
-  console.log(result);
   return result;
 };
