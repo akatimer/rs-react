@@ -1,4 +1,11 @@
-import { Await, LoaderFunction, defer, useLoaderData } from 'react-router-dom';
+import {
+  Await,
+  Link,
+  LoaderFunction,
+  defer,
+  useLoaderData,
+  useParams,
+} from 'react-router-dom';
 import './CardDetailed.css';
 import { searchMangaById } from '../../utils/api/searchMangaById';
 import { MangaResponseData } from '../../utils/api/apiTypes';
@@ -11,6 +18,8 @@ type DetailedMangaPromise = {
 
 const CardDetailed: React.FC = (): JSX.Element => {
   const { data } = useLoaderData() as DetailedMangaPromise;
+  const { limit, page, term } = useParams();
+
   return (
     <Suspense fallback={<Loader />}>
       <Await resolve={data}>
@@ -18,6 +27,16 @@ const CardDetailed: React.FC = (): JSX.Element => {
           console.log(data);
           return (
             <div key={data.data.mal_id} className="card__detailed">
+              <Link
+                className="link_button"
+                to={
+                  term
+                    ? `/limit/${limit}/page/${page}/term/${term}`
+                    : `/limit/${limit}/page/${page}/term/`
+                }
+              >
+                {'CLOSE'}
+              </Link>
               <div className="card__detailed__img">
                 <img src={data.data.images.webp.image_url} />
               </div>
