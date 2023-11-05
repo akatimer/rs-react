@@ -10,8 +10,12 @@ const router = createBrowserRouter([
     errorElement: <div>404</div>,
     children: [
       {
-        // path: 'manga',
         index: true,
+        element: <MiddleSection />,
+        loader: mangaLoader,
+      },
+      {
+        path: '/limit/:limit/page/:page/term/:term',
         element: <MiddleSection />,
         loader: mangaLoader,
       },
