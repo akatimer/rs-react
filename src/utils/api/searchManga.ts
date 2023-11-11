@@ -11,12 +11,8 @@ export const searchManga: (
   searchTerm
 ) => {
   let requestUrl = `${BASE_URL}`;
-  if (itemsOnPage) {
-    requestUrl = `${BASE_URL}&limit=${itemsOnPage}`;
-  }
-  if (page) {
-    requestUrl = requestUrl + `&page=${page}`;
-  }
+  requestUrl = `${BASE_URL}&limit=${itemsOnPage}`;
+  requestUrl = requestUrl + `&page=${page}`;
   if (searchTerm) {
     requestUrl = requestUrl + `&q=${searchTerm}`;
   }
