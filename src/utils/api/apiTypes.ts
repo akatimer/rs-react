@@ -1,6 +1,7 @@
 export type MangaResponseType = {
   data: MangaResponseData[];
   pagination: {
+    current_page: number;
     last_visible_page: number;
     has_next_page: true;
     items: {

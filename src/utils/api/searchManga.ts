@@ -22,5 +22,6 @@ export const searchManga: (
   }
   const data = await fetch(requestUrl);
   const result = await data.json();
+  console.log(result);
   return result;
 };
