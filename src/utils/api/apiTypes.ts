@@ -27,7 +27,7 @@ export type MangaResponseData = {
       large_image_url: string;
     };
   };
-  approved: true;
+  approved: boolean;
   titles: [
     {
       type: string;
@@ -41,7 +41,7 @@ export type MangaResponseData = {
   chapters: number;
   volumes: number;
   status: string;
-  publishing: true;
+  publishing: boolean;
   published: {
     from: string;
     to: string;

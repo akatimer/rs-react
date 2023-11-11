@@ -1,5 +1,7 @@
-export const mockResponseData = {
-  mal_id: '1',
+import { MangaResponseData } from '../api/apiTypes';
+
+export const mockResponseData: MangaResponseData = {
+  mal_id: 1,
   url: 'https://myanimelist.net/manga/128594/One_Piece__Episode_A',
   images: {
     jpg: {
