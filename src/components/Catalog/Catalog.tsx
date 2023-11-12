@@ -3,9 +3,10 @@ import Card from '../Card/Card';
 import { Await, LoaderFunction, defer, useLoaderData } from 'react-router-dom';
 import { MangaResponseData, MangaResponseType } from '../../utils/api/apiTypes';
 import Loader from '../Loader/Loader';
-import { Suspense } from 'react';
+import { Suspense, useContext } from 'react';
 import { searchManga } from '../../utils/api/searchManga';
 import Pagination from '../Pagination/Pagination';
+import DataContext from '../Context/DataContext';
 
 export type MangaPromise = {
   data: Promise<MangaResponseType>;
@@ -13,6 +14,11 @@ export type MangaPromise = {
 
 const Catalog: React.FC = (): JSX.Element => {
   const { data } = useLoaderData() as MangaPromise;
+  const { setAllManga } = useContext(DataContext);
+
+  Promise.resolve(data).then((res) => {
+    setAllManga(res);
+  });
 
   return (
     <Suspense fallback={<Loader />}>
