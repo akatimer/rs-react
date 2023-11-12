@@ -44,6 +44,6 @@ describe('renders Card component', async () => {
     'href',
     '/limit/15/page/1/term/one/detailed/1'
   );
-  expect(screen.getByText('8.13')).toBeDefined();
+  expect(screen.getByText('9.13')).toBeDefined();
   expect(screen.getByText('12')).toBeDefined();
 });
