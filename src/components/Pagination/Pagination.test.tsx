@@ -24,21 +24,6 @@ describe('renders Card component', async () => {
       useLoaderData: vi.fn(() => ({ data: mockMangaResponse })),
     };
   });
-  // describe('Test pagination data', async () => {
-  //   const routes = [
-  //     {
-  //       path: 'pagination',
-  //       element: <Pagination />,
-  //       loader: () => mockLoader,
-  //     },
-  //   ];
-
-  //   const router = createMemoryRouter(routes, {
-  //     initialEntries: ['pagination'],
-  //   });
-
-  //   render(<RouterProvider router={router} />);
-  // });
 
   render(
     <MemoryRouter>

@@ -26,13 +26,6 @@ export class ErrorBoundary extends Component<Props, State> {
       return (
         <>
           <h1>Sorry.. there was an error</h1>
-          <button
-            onClick={() => {
-              window.location.reload();
-            }}
-          >
-            Press to reload page
-          </button>
         </>
       );
     }
