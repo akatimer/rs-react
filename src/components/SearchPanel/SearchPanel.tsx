@@ -1,16 +1,19 @@
-import { useContext } from 'react';
 import './SearchPanel.css';
-import DataContext from '../Context/DataContext';
 import { useNavigate, useParams } from 'react-router-dom';
 import Limit from '../Limit/Limit';
+import { useAppSelector, useAppDispatch } from '../../store/hooks';
+import sliceSearchValue from '../../store/sliceSearchValue';
 
 const SearchPanel: React.FC = (): JSX.Element => {
-  const { searchValue, setSearchValue } = useContext(DataContext);
+  const searchValue = useAppSelector((state) => {
+    return state.search.searchValue;
+  });
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { limit, page } = useParams();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(e.target.value);
+    dispatch(sliceSearchValue.actions.setSearchValue(e.target.value));
   };
 
   return (
@@ -19,7 +22,7 @@ const SearchPanel: React.FC = (): JSX.Element => {
         className="search-form"
         onSubmit={async (e) => {
           e.preventDefault();
-          setSearchValue(searchValue);
+          dispatch(sliceSearchValue.actions.setSearchValue(searchValue));
           localStorage.setItem('mangaSearch', searchValue);
           navigate(`/limit/${limit}/page/${page}/term/${searchValue}`);
         }}
