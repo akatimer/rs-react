@@ -3,10 +3,11 @@ import Card from '../Card/Card';
 import { Await, LoaderFunction, defer, useLoaderData } from 'react-router-dom';
 import { MangaResponseData, MangaResponseType } from '../../utils/api/apiTypes';
 import Loader from '../Loader/Loader';
-import { Suspense, useContext } from 'react';
+import { Suspense } from 'react';
 import { searchManga } from '../../utils/api/searchManga';
 import Pagination from '../Pagination/Pagination';
-import DataContext from '../Context/DataContext';
+import { useAppDispatch } from '../../store/hooks';
+import sliceAllManga from '../../store/sliceAllManga';
 
 export type MangaPromise = {
   data: Promise<MangaResponseType>;
@@ -14,10 +15,10 @@ export type MangaPromise = {
 
 const Catalog: React.FC = (): JSX.Element => {
   const { data } = useLoaderData() as MangaPromise;
-  const { setAllManga } = useContext(DataContext);
+  const dispatch = useAppDispatch();
 
   Promise.resolve(data).then((res) => {
-    setAllManga(res);
+    dispatch(sliceAllManga.actions.setAllManga(res));
   });
 
   return (
