@@ -22,8 +22,7 @@ const SearchPanel: React.FC = (): JSX.Element => {
         className="search-form"
         onSubmit={async (e) => {
           e.preventDefault();
-          dispatch(sliceSearchValue.actions.setSearchValue(searchValue));
-          localStorage.setItem('mangaSearch', searchValue);
+          dispatch(sliceSearchValue.actions.setLSTerm(searchValue));
           navigate(`/limit/${limit}/page/${page}/term/${searchValue}`);
         }}
       >
