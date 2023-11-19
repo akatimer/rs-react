@@ -1,48 +1,54 @@
 import './Catalog.css';
 import Card from '../Card/Card';
-import { Await, LoaderFunction, defer, useLoaderData } from 'react-router-dom';
-import { MangaResponseData, MangaResponseType } from '../../utils/api/apiTypes';
+import { useParams } from 'react-router-dom';
+import { MangaResponseData } from '../../utils/api/apiTypes';
 import Loader from '../Loader/Loader';
-import { Suspense } from 'react';
-import { searchManga } from '../../utils/api/searchManga';
+import { useEffect } from 'react';
+import searchManga from '../../utils/api/searchManga';
 import Pagination from '../Pagination/Pagination';
-import { useAppDispatch } from '../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import sliceAllManga from '../../store/sliceAllManga';
 
-export type MangaPromise = {
-  data: Promise<MangaResponseType>;
-};
-
 const Catalog: React.FC = (): JSX.Element => {
-  const { data } = useLoaderData() as MangaPromise;
+  const { limit, page, term } = useParams();
+  const { data, isLoading } = searchManga.endpoints.searchManga.useQuery({
+    limit,
+    page,
+    term,
+  });
+  console.log(limit, page, term, 'cat');
+  const searchTerm = localStorage.getItem('mangaSearch');
+  console.log(searchTerm, 'mangaSearch');
+
+  const allManga = useAppSelector((state) => {
+    return state.allManga.allManga;
+  });
   const dispatch = useAppDispatch();
 
-  Promise.resolve(data).then((res) => {
-    dispatch(sliceAllManga.actions.setAllManga(res));
-  });
+  useEffect(() => {
+    if (data) {
+      dispatch(sliceAllManga.actions.setAllManga(data));
+    }
+  }, [data, allManga, dispatch]);
 
-  return (
-    <Suspense fallback={<Loader />}>
-      <Await resolve={data}>
-        {(mangaCards) => {
-          return (
-            <>
-              <div className="catalog">
-                {mangaCards.data.map((card: MangaResponseData) => (
-                  <Card key={card.mal_id} {...card} />
-                ))}
-              </div>
-              <Pagination />
-            </>
-          );
-        }}
-      </Await>
-    </Suspense>
-  );
-};
+  if (isLoading) {
+    return <Loader />;
+  }
 
-export const mangaLoader: LoaderFunction = async ({ params }) => {
-  return defer({ data: searchManga(params.limit, params.page, params.term) });
+  if (data) {
+    return (
+      <>
+        <div className="catalog">
+          {data.data.map((card: MangaResponseData) => (
+            <Card key={card.mal_id} {...card} />
+          ))}
+        </div>
+        <Pagination />
+      </>
+    );
+  } else {
+    return <div>No data</div>;
+  }
 };
 
 export default Catalog;

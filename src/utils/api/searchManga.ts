@@ -1,22 +1,21 @@
-import { BASE_URL } from '../const/const';
-import { MangaResponseType } from './apiTypes';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { BASE_URL_SEARCH } from '../const/const';
 
-export const searchManga: (
-  itemsOnPage?: string,
-  page?: string,
-  searchTerm?: string
-) => Promise<MangaResponseType> = async (
-  itemsOnPage = '15',
-  page = '1',
-  searchTerm
-) => {
-  let requestUrl = `${BASE_URL}`;
-  requestUrl = `${BASE_URL}&limit=${itemsOnPage}`;
-  requestUrl = requestUrl + `&page=${page}`;
-  if (searchTerm) {
-    requestUrl = requestUrl + `&q=${searchTerm}`;
-  }
-  const data = await fetch(requestUrl);
-  const result = await data.json();
-  return result;
-};
+const searchManga = createApi({
+  baseQuery: fetchBaseQuery({
+    baseUrl: `${BASE_URL_SEARCH}`,
+  }),
+  endpoints: (builder) => ({
+    searchManga: builder.query({
+      query: ({ limit, page, term }) => {
+        let requestUrl = `?sfw=true&limit=${limit}&page=${page}`;
+        if (term) {
+          requestUrl += `&q=${term}`;
+        }
+        return requestUrl;
+      },
+    }),
+  }),
+});
+
+export default searchManga;

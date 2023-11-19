@@ -23,6 +23,7 @@ const SearchPanel: React.FC = (): JSX.Element => {
         onSubmit={async (e) => {
           e.preventDefault();
           dispatch(sliceSearchValue.actions.setLSTerm(searchValue));
+          console.log(limit, page, searchValue);
           navigate(`/limit/${limit}/page/${page}/term/${searchValue}`);
         }}
       >

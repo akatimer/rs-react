@@ -1,7 +1,6 @@
 import { Navigate, createBrowserRouter } from 'react-router-dom';
 import MainPage from '../MainPage/MainPage';
 import MiddleSection from '../MiddleSection/MiddleSection';
-import { mangaLoader } from '../Catalog/Catalog';
 import CardDetailed, {
   detailedMangaLoader,
 } from '../CardDetailed/CardDetailed';
@@ -27,7 +26,7 @@ const router = createBrowserRouter([
       {
         path: `/limit/:limit/page/:page/term/:term?`,
         element: <MiddleSection />,
-        loader: mangaLoader,
+        // loader: mangaLoader,
         children: [
           {
             path: `detailed/:id`,
