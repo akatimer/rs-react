@@ -16,9 +16,6 @@ const Catalog: React.FC = (): JSX.Element => {
     page,
     term,
   });
-  console.log(limit, page, term, 'cat');
-  const searchTerm = localStorage.getItem('mangaSearch');
-  console.log(searchTerm, 'mangaSearch');
 
   const allManga = useAppSelector((state) => {
     return state.allManga.allManga;

@@ -1,11 +1,17 @@
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { BASE_URL_SEARCH } from '../const/const';
-import { MangaResponseType } from './apiTypes';
 
-export const searchMangaById: (
-  id: string
-) => Promise<MangaResponseType> = async (id) => {
-  const requestUrl = `${BASE_URL_SEARCH}${id}`;
-  const data = await fetch(requestUrl);
-  const result = await data.json();
-  return result;
-};
+const searchMangaById = createApi({
+  baseQuery: fetchBaseQuery({
+    baseUrl: `${BASE_URL_SEARCH}`,
+  }),
+  endpoints: (builder) => ({
+    searchManga: builder.query({
+      query: ({ id }) => {
+        return id;
+      },
+    }),
+  }),
+});
+
+export default searchMangaById;
