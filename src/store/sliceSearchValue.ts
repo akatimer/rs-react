@@ -2,7 +2,10 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const sliceSearchValue = createSlice({
   name: 'searchValue',
-  initialState: { searchValue: localStorage.getItem('mangaSearch') ?? '' },
+  initialState: {
+    searchValue:
+      typeof window !== 'undefined' ? localStorage.getItem('mangaSearch') : '',
+  },
   reducers: {
     setSearchValue(state, action) {
       state.searchValue = action.payload;
