@@ -6,7 +6,7 @@ import Image from 'next/image';
 
 const Card: React.FC<MangaResponseData> = (props): JSX.Element => {
   return (
-    <Link href={`/${props.mal_id}`} className="card">
+    <Link href={`/${props.mal_id}`} className="card" scroll={false}>
       <div className="card__img">
         <Image
           src={props.images.webp.image_url}
