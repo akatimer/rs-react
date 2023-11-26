@@ -1,0 +1,15 @@
+.search-form {
+  width: 100%;
+  display: flex;
+  max-width: 900px;
+}
+
+.search-form__input {
+  width: 60%;
+  margin: 5px;
+}
+
+.search-form__button {
+  width: 30%;
+  margin: 5px;
+}
