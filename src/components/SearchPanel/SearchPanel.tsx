@@ -10,8 +10,10 @@ const SearchPanel: React.FC = (): JSX.Element => {
     return state.search.searchValue;
   });
   const dispatch = useAppDispatch();
-  // const navigate = useRouter();
-  // const { limit, page } = useSearchParams();
+  const navigate = useRouter();
+  const searchParams = useSearchParams();
+  const limit = searchParams.get('limit');
+  const page = searchParams.get('page');
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(sliceSearchValue.actions.setSearchValue(e.target.value));
@@ -24,7 +26,7 @@ const SearchPanel: React.FC = (): JSX.Element => {
         onSubmit={async (e) => {
           e.preventDefault();
           dispatch(sliceSearchValue.actions.setLSTerm(searchValue));
-          // navigate.push(`/limit/${limit}/page/${page}/term/${searchValue}`);
+          navigate.push(`/?limit=${limit}&page=${page}&term=${searchValue}`);
         }}
       >
         <input

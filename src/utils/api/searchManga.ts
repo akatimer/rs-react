@@ -7,7 +7,7 @@ const searchManga = createApi({
   }),
   endpoints: (builder) => ({
     searchManga: builder.query({
-      query: ({ limit, page, term }) => {
+      query: ({ limit = 18, page = 1, term = '' }) => {
         let requestUrl = `?sfw=true&limit=${limit}&page=${page}`;
         if (term) {
           requestUrl += `&q=${term}`;

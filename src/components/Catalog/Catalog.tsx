@@ -5,11 +5,22 @@ import { MangaResponseData } from '../../utils/api/apiTypes';
 import Loader from '../Loader/Loader';
 import searchManga from '../../utils/api/searchManga';
 import Pagination from '../Pagination/Pagination';
-import { useAppDispatch } from '../../store/hooks';
-import sliceAllManga from '../../store/sliceAllManga';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 const Catalog: React.FC = (): JSX.Element => {
+  const navigate = useRouter();
+  const lsTerm = localStorage.getItem('mangaSearch');
+
+  const windowUrl =
+    typeof window !== 'undefined' && window.location.search
+      ? window.location.search
+      : '';
+  useEffect(() => {
+    if (!windowUrl) {
+      navigate.replace(`/?limit=12&page=1&term=${lsTerm}`);
+    }
+  }, [lsTerm, navigate, windowUrl]);
   const searchParams = useSearchParams();
   const limit = searchParams.get('limit');
   const page = searchParams.get('page');
@@ -21,14 +32,11 @@ const Catalog: React.FC = (): JSX.Element => {
     term,
   });
 
-  const dispatch = useAppDispatch();
-
   if (isLoading) {
     return <Loader />;
   }
 
   if (data) {
-    dispatch(sliceAllManga.actions.setAllManga(data));
     return (
       <>
         <div className="catalog">
