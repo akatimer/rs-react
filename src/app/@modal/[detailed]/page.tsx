@@ -1,5 +1,7 @@
 import CardDetailed from '@/components/CardDetailed/CardDetailed';
+import Loader from '@/components/Loader/Loader';
 import ModalWindow from '@/components/ModalWindow/ModalWindow';
+import { Suspense } from 'react';
 
 async function getData(id: string) {
   const res = await fetch(`https://api.jikan.moe/v4/manga/${id}`);
@@ -20,7 +22,10 @@ export default async function Detailed(params: {
   return (
     <div>
       <ModalWindow>
-        <CardDetailed data={data} />
+        <Suspense fallback={<Loader />}>
+
+          <CardDetailed data={data} />
+        </Suspense>
       </ModalWindow>
     </div>
   );

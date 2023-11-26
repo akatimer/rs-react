@@ -1,12 +1,14 @@
 import './CardDetailed.css';
 import { MangaResponseData } from '@/utils/api/apiTypes';
 import Image from 'next/image';
+import { Suspense } from 'react';
+import Loader from '../Loader/Loader';
 
 const CardDetailed: React.FC<{ data: { data: MangaResponseData } }> = ({
   data,
 }): JSX.Element => {
   return (
-    <>
+    <Suspense fallback={<Loader />}>
       <div className="card__detailed">
         <div className="card__detailed__img">
           <Image
@@ -36,7 +38,7 @@ const CardDetailed: React.FC<{ data: { data: MangaResponseData } }> = ({
           </div>
         </div>
       </div>
-    </>
+    </Suspense>
   );
 };
 
