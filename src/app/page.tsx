@@ -9,7 +9,7 @@ export default function Home() {
         <TopSection />
       </header>
       <main className={styles.main}>
-        {/* <Catalog /> */}
+        <Catalog />
       </main>
     </>
   );

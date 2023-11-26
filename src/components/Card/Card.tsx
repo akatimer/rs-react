@@ -1,21 +1,14 @@
 import React from 'react';
 import './Card.css';
 import { MangaResponseData } from '../../utils/api/apiTypes';
-import { Link, useParams } from 'react-router-dom';
+import Link from 'next/link';
 
 const Card: React.FC<MangaResponseData> = (props): JSX.Element => {
-  const { limit, page, term } = useParams();
+  // const { limit, page, term } = useAllParams();
   return (
-    <Link
-      to={
-        term
-          ? `/limit/${limit}/page/${page}/term/${term}/detailed/${props.mal_id}`
-          : `/limit/${limit}/page/${page}/term/detailed/${props.mal_id}`
-      }
-      className="card"
-    >
+    <Link href={`/${props.mal_id}`} className="card">
       <div className="card__img">
-        <img src={props.images.webp.image_url} />
+        {/* <img src={props.images.webp.image_url} /> */}
       </div>
       <div className="card__info">
         <div className="card__line">

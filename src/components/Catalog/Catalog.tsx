@@ -1,38 +1,34 @@
+'use client';
 import './Catalog.css';
 import Card from '../Card/Card';
-import { useParams } from 'react-router-dom';
 import { MangaResponseData } from '../../utils/api/apiTypes';
 import Loader from '../Loader/Loader';
-import { useEffect } from 'react';
 import searchManga from '../../utils/api/searchManga';
 import Pagination from '../Pagination/Pagination';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { useAppDispatch } from '../../store/hooks';
 import sliceAllManga from '../../store/sliceAllManga';
+import { useSearchParams } from 'next/navigation';
 
 const Catalog: React.FC = (): JSX.Element => {
-  const { limit, page, term } = useParams();
+  const searchParams = useSearchParams();
+  const limit = searchParams.get('limit');
+  const page = searchParams.get('page');
+  const term = searchParams.get('term');
+
   const { data, isLoading } = searchManga.endpoints.searchManga.useQuery({
     limit,
     page,
     term,
   });
 
-  const allManga = useAppSelector((state) => {
-    return state.allManga.allManga;
-  });
   const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    if (data) {
-      dispatch(sliceAllManga.actions.setAllManga(data));
-    }
-  }, [data, allManga, dispatch]);
 
   if (isLoading) {
     return <Loader />;
   }
 
   if (data) {
+    dispatch(sliceAllManga.actions.setAllManga(data));
     return (
       <>
         <div className="catalog">
@@ -40,7 +36,7 @@ const Catalog: React.FC = (): JSX.Element => {
             <Card key={card.mal_id} {...card} />
           ))}
         </div>
-        <Pagination />
+        <Pagination data={data} />
       </>
     );
   } else {

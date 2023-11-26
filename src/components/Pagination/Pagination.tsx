@@ -1,51 +1,51 @@
-import { Link, useParams } from 'react-router-dom';
 import './Pagintaion.css';
-import searchManga from '../../utils/api/searchManga';
+import { useAppSelector } from '@/store/hooks';
+import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
+import { MangaResponseType } from '@/utils/api/apiTypes';
 
-const Pagination: React.FC = (): JSX.Element => {
-  const { limit, page, term } = useParams();
-  const { data } = searchManga.endpoints.searchManga.useQuery({
-    limit,
-    page,
-    term,
+const Pagination: React.FC<{
+  data: MangaResponseType;
+}> = ({ data }): JSX.Element => {
+  const term = useAppSelector((state) => {
+    state.search.searchValue;
   });
+  const urlLimitParam = useSearchParams().get('limit');
+  const page = useSearchParams().get('page');
+  const urlTermParam = useSearchParams().get('term');
 
   return (
     <div className="pagination">
       <Link
         className="link_button"
-        to={
-          term
-            ? `/limit/${limit}/page/${1}/term/${localStorage.getItem(
-                'mangaSearch'
-              )}`
-            : `/limit/${limit}/page/${1}/term/`
-        }
+        href={`/?limit=${urlLimitParam}&page=${1}&term=${term}`}
       >
         {'<<'}
       </Link>
       <Link
         className="link_button"
-        to={`/limit/${limit}/page/${
-          Number(page) > 2 ? Number(page) - 1 : page
-        }/term/${term || ''}`}
+        href={`/?limit=${urlLimitParam}&page=${
+          Number(page) > 1 ? Number(page) - 1 : page
+        }&term=${urlTermParam ?? ''}`}
       >
         {'<'}
       </Link>
       <div className="link_button">{page}</div>
       <Link
         className="link_button"
-        to={`/limit/${limit}/page/${
+        href={`/?limit=${urlLimitParam}&page=${
           Number(page) < data.pagination.last_visible_page
             ? Number(page) + 1
             : page
-        }/term/${term}`}
+        }&term=${urlTermParam ?? ''}`}
       >
         {'>'}
       </Link>
       <Link
         className="link_button"
-        to={`/limit/${limit}/page/${data.pagination.last_visible_page}/term/${term}`}
+        href={`/?limit=${urlLimitParam}&page=${
+          data.pagination.last_visible_page
+        }&term=${urlTermParam ?? ''}`}
       >
         {'>>'}
       </Link>
