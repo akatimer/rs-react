@@ -23,7 +23,6 @@ export default async function Detailed(params: {
     <div>
       <ModalWindow>
         <Suspense fallback={<Loader />}>
-
           <CardDetailed data={data} />
         </Suspense>
       </ModalWindow>
