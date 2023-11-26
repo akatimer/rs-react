@@ -1,22 +1,23 @@
-import { useState } from 'react';
+// import { useState } from 'react';
+import SearchPanel from '@/components/SearchPanel/SearchPanel';
 import './TopSection.css';
-import SearchPanel from '../SearchPanel/SearchPanel';
-import Err from '../Err/Err';
+
+// import Err from '../Err/Err';
 
 const TopSection: React.FC = (): JSX.Element => {
-  const [newErr, setNewErr] = useState<boolean>(false);
+  // const [newErr, setNewErr] = useState<boolean>(false);
 
   return (
     <>
       <h1>Manga Searcher</h1>
-      <button
+      {/* <button
         onClick={() => {
           setNewErr(true);
         }}
       >
         Error
       </button>
-      {newErr && <Err />}
+      {newErr && <Err />} */}
       <SearchPanel />
     </>
   );

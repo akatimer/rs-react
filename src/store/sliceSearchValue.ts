@@ -4,7 +4,9 @@ const sliceSearchValue = createSlice({
   name: 'searchValue',
   initialState: {
     searchValue:
-      typeof window !== 'undefined' ? localStorage.getItem('mangaSearch') : '',
+      typeof window !== 'undefined'
+        ? localStorage.getItem('mangaSearch') ?? ''
+        : '',
   },
   reducers: {
     setSearchValue(state, action) {

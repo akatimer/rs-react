@@ -1,16 +1,17 @@
+'use client';
 import './SearchPanel.css';
-import { useNavigate, useParams } from 'react-router-dom';
-import Limit from '../Limit/Limit';
-import { useAppSelector, useAppDispatch } from '../../store/hooks';
-import sliceSearchValue from '../../store/sliceSearchValue';
+import Limit from '@/components/Limit/Limit';
+import { useAppSelector, useAppDispatch } from '@/store/hooks';
+import sliceSearchValue from '@/store/sliceSearchValue';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 const SearchPanel: React.FC = (): JSX.Element => {
   const searchValue = useAppSelector((state) => {
     return state.search.searchValue;
   });
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-  const { limit, page } = useParams();
+  // const navigate = useRouter();
+  // const { limit, page } = useSearchParams();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(sliceSearchValue.actions.setSearchValue(e.target.value));
@@ -23,8 +24,7 @@ const SearchPanel: React.FC = (): JSX.Element => {
         onSubmit={async (e) => {
           e.preventDefault();
           dispatch(sliceSearchValue.actions.setLSTerm(searchValue));
-          console.log(limit, page, searchValue);
-          navigate(`/limit/${limit}/page/${page}/term/${searchValue}`);
+          // navigate.push(`/limit/${limit}/page/${page}/term/${searchValue}`);
         }}
       >
         <input
