@@ -1,4 +1,4 @@
-import { Navigate, createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom';
 import MainPage from '../MainPage/MainPage';
 
 const router = createBrowserRouter([

@@ -1,9 +1,12 @@
 import { Outlet } from 'react-router';
+import UncontroledForm from '../UncontroledForm/UncontroledForm';
 
 const MainPage: React.FC = (): JSX.Element => {
   return (
     <>
-      <header></header>
+      <header>
+        <UncontroledForm />
+      </header>
       <main className="container">
         <Outlet />
       </main>
