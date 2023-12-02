@@ -1,5 +1,6 @@
 import { FormEvent, useRef } from 'react';
 import DefaultInput from '../UncontroledComponents/DefaultInput/DefaultInput';
+import createData from '../../utils/createData';
 
 const UncontroledForm: React.FC = (): JSX.Element => {
   const nameInputRef = useRef<HTMLInputElement | null>(null);
@@ -10,7 +11,17 @@ const UncontroledForm: React.FC = (): JSX.Element => {
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    console.log(nameInputRef.current?.value);
+    const currentData = createData(
+      nameInputRef.current?.value ?? '',
+      Number(ageInputRef.current?.value ?? 0),
+      emailInputRef.current?.value ?? '',
+      passwordInputRef.current?.value ?? '',
+      'male',
+      true,
+      'pic',
+      'USA'
+    );
+    console.log(currentData);
   };
 
   return (
