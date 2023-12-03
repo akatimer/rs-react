@@ -1,33 +1,36 @@
 type createDataType = {
   name: string;
-  age: number;
+  age: string;
   email: string;
   password: string;
+  confirm: string;
   gender: string;
-  terms: string;
-  pic: string;
-  county: string;
+  terms: boolean;
+  image: string | null | File;
+  country: string;
 };
 
 const createData = (
   name: string,
-  age: number,
+  age: string,
   email: string,
   password: string,
+  confirm: string,
   gender: string,
-  terms: string,
-  pic: string,
-  county: string
+  terms: boolean,
+  image: File | null,
+  country: string
 ): createDataType => {
   return {
     name: name,
     age: age,
     email: email,
     password: password,
+    confirm: confirm,
     gender: gender,
     terms: terms,
-    pic: pic,
-    county: county,
+    image: image,
+    country: country,
   };
 };
 

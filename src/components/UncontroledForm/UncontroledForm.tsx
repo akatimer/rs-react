@@ -1,8 +1,25 @@
-import { FormEvent, useRef } from 'react';
+import { FormEvent, useRef, useState } from 'react';
 import DefaultInput from '../UncontroledComponents/DefaultInput/DefaultInput';
 import createData from '../../utils/createData';
 import ImgInput from '../UncontroledComponents/ImgInput/ImgInput';
 import GenderRadio from '../UncontroledComponents/GenderRadio/GenderRadio';
+import CountryInput from '../UncontroledComponents/CountryInput/CountryInput';
+import schema from '../../utils/yupValidation/yupValidation';
+import * as yup from 'yup';
+import { useAppDispatch } from '../../store/hooks';
+import { setCards, setImages } from '../../store/slice/formDataCardsSlice';
+
+interface ErrorsInterface {
+  name?: string;
+  age?: string;
+  email?: string;
+  password?: string;
+  confirm?: string;
+  gender?: string;
+  terms?: string;
+  image?: string;
+  country?: string;
+}
 
 const UncontroledForm: React.FC = (): JSX.Element => {
   const nameInputRef = useRef<HTMLInputElement | null>(null);
@@ -14,70 +31,124 @@ const UncontroledForm: React.FC = (): JSX.Element => {
   const genderFemaleInputRef = useRef<HTMLInputElement | null>(null);
   const termsInputRef = useRef<HTMLInputElement | null>(null);
   const imgInputRef = useRef<HTMLInputElement | null>(null);
+  const countryInputRef = useRef<HTMLSelectElement | null>(null);
+  const [errors, setErrors] = useState<ErrorsInterface>({});
+
+  const dispatch = useAppDispatch();
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
+
     const currentData = createData(
       nameInputRef.current?.value ?? '',
-      Number(ageInputRef.current?.value ?? 0),
+      ageInputRef.current?.value ?? '',
       emailInputRef.current?.value ?? '',
       passwordInputRef.current?.value ?? '',
+      confirmInputRef.current?.value ?? '',
       genderMaleInputRef.current?.checked ? 'male' : 'female',
-      termsInputRef.current?.value ?? 'false',
-      'pic',
-      'USA'
+      termsInputRef.current?.checked ?? false,
+      imgInputRef.current?.files![0] || null,
+      countryInputRef.current?.value ?? ''
     );
     console.log(currentData);
-    console.log(genderMaleInputRef, 111);
+    schema
+      .validate(currentData, { abortEarly: false })
+      .then((data) => {
+        const { image, ...newData } = data;
+        if (image) {
+          const reader = new FileReader();
+          reader.onload = (event) => {
+            const base64String = event.target?.result;
+            dispatch(setImages(base64String as string));
+          };
+          reader.readAsDataURL(image);
+        }
+        dispatch(setCards(newData));
+        console.log(newData, 123123123);
+      })
+      .catch((err) => {
+        console.error(err);
+        console.log(err.inner);
+        setErrors(
+          err.inner.reduce(
+            (errors: object, error: yup.ValidationError) => ({
+              ...errors,
+              [error.path!]: error.message,
+            }),
+            {}
+          )
+        );
+      });
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <DefaultInput
+        name={'name'}
         ref={nameInputRef}
         description={'Enter your name: '}
         type={'text'}
       />
+      <p>{errors.name ? errors.name : null}</p>
       <DefaultInput
+        name={'age'}
         ref={ageInputRef}
         description={'Enter your age: '}
         type={'number'}
       />
+      <p>{errors.age ? errors.age : null}</p>
       <DefaultInput
+        name={'email'}
         ref={emailInputRef}
         description={'Enter your email: '}
         type={'text'}
       />
+      <p>{errors.email ? errors.email : null}</p>
       <DefaultInput
+        name={'password'}
         ref={passwordInputRef}
         description={'Enter your password: '}
         type={'text'}
       />
+      {/* <p>{errors.password ? errors.password : null}</p> */}
       <DefaultInput
+        name={'confirm'}
         ref={confirmInputRef}
         description={'Confirm password: '}
         type={'text'}
       />
+      <p>{errors.confirm ? errors.confirm : null}</p>
       <div>
         <span>Choose Gender: </span>
         <GenderRadio
+          name={'gender'}
           ref={genderMaleInputRef}
           title={'male'}
           genderValue={'male'}
           defaultChecked={true}
         />
         <GenderRadio
+          name={'gender'}
           title={'female'}
           genderValue={'female'}
           ref={genderFemaleInputRef}
         />
       </div>
+      <p>{errors.gender ? errors.gender : null}</p>
       <DefaultInput
+        name={'terms'}
         ref={termsInputRef}
         description={'Accept T&C: '}
         type={'checkbox'}
       />
-      <ImgInput description="Upload image" ref={imgInputRef} />
+      <p>{errors.terms ? errors.terms : null}</p>
+      <ImgInput name={'image'} description="Upload image" ref={imgInputRef} />
+      <CountryInput
+        name="country"
+        description="Select Country"
+        ref={countryInputRef}
+      />
+      <p>{errors.country ? errors.country : null}</p>
       <button type="submit">Submit</button>
     </form>
   );

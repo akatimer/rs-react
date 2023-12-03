@@ -5,11 +5,12 @@ interface GenderRadioProps {
   title: string;
   genderValue: string;
   defaultChecked?: boolean;
+  name: string;
 }
 
 const GenderRadio = React.forwardRef(
   (
-    { title, genderValue, defaultChecked }: GenderRadioProps,
+    { title, genderValue, name, defaultChecked }: GenderRadioProps,
     ref: LegacyRef<HTMLInputElement> | undefined
   ) => {
     return (
@@ -17,17 +18,13 @@ const GenderRadio = React.forwardRef(
         <label>
           <input
             type="radio"
-            name="option"
+            name={name}
             ref={ref}
             value={genderValue}
             defaultChecked={defaultChecked}
           />
           {title}
         </label>
-        {/* <label>
-          <input type="radio" name="option" ref={ref2} value="female" />
-          Female
-        </label> */}
       </div>
     );
   }
