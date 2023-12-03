@@ -1,15 +1,12 @@
-import { Outlet } from 'react-router';
-import UncontroledForm from '../UncontroledForm/UncontroledForm';
+import { Link } from 'react-router-dom';
 
 const MainPage: React.FC = (): JSX.Element => {
   return (
     <>
-      <header>
-        <UncontroledForm />
-      </header>
-      <main className="container">
-        <Outlet />
-      </main>
+      <div className="link-container">
+        <Link to={'uncontroled'}>To Uncontroled Form</Link>
+        <Link to={'controled'}>To Controled Form</Link>
+      </div>
     </>
   );
 };
