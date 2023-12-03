@@ -17,7 +17,6 @@ const MainPage: React.FC = (): JSX.Element => {
   );
   const imagesControl = [...imagesContr].reverse();
 
-  console.log(cardData, cardDataControl, images, imagesContr);
   return (
     <>
       <div className="link-container">
