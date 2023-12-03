@@ -4,10 +4,13 @@ import createData from '../../utils/createData';
 import ImgInput from '../UncontroledComponents/ImgInput/ImgInput';
 import GenderRadio from '../UncontroledComponents/GenderRadio/GenderRadio';
 import CountryInput from '../UncontroledComponents/CountryInput/CountryInput';
-import schema from '../../utils/yupValidation/yupValidation';
+import schema, {
+  passValidation,
+} from '../../utils/yupValidation/yupValidation';
 import * as yup from 'yup';
 import { useAppDispatch } from '../../store/hooks';
 import { setCards, setImages } from '../../store/slice/formDataCardsSlice';
+import { useNavigate } from 'react-router';
 
 interface ErrorsInterface {
   name?: string;
@@ -33,8 +36,20 @@ const UncontroledForm: React.FC = (): JSX.Element => {
   const imgInputRef = useRef<HTMLInputElement | null>(null);
   const countryInputRef = useRef<HTMLSelectElement | null>(null);
   const [errors, setErrors] = useState<ErrorsInterface>({});
+  const [passErr, setPassErr] = useState<string[]>([]);
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const valid = async (pass: string): Promise<void> => {
+    const password = pass;
+    const result = await passValidation(password);
+    if (typeof result === 'string') {
+      setPassErr([]);
+    } else {
+      setPassErr(Object.values(result.errors));
+    }
+  };
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
@@ -50,7 +65,7 @@ const UncontroledForm: React.FC = (): JSX.Element => {
       imgInputRef.current?.files![0] || null,
       countryInputRef.current?.value ?? ''
     );
-    console.log(currentData);
+    valid(currentData.password);
     schema
       .validate(currentData, { abortEarly: false })
       .then((data) => {
@@ -64,11 +79,9 @@ const UncontroledForm: React.FC = (): JSX.Element => {
           reader.readAsDataURL(image);
         }
         dispatch(setCards(newData));
-        console.log(newData, 123123123);
+        navigate('/');
       })
       .catch((err) => {
-        console.error(err);
-        console.log(err.inner);
         setErrors(
           err.inner.reduce(
             (errors: object, error: yup.ValidationError) => ({
@@ -108,14 +121,22 @@ const UncontroledForm: React.FC = (): JSX.Element => {
         name={'password'}
         ref={passwordInputRef}
         description={'Enter your password: '}
-        type={'text'}
+        type={'password'}
       />
-      {/* <p>{errors.password ? errors.password : null}</p> */}
+      <p>
+        {passErr
+          ? passErr
+              .filter((el) => el !== 'P')
+              .map((err) => {
+                return <span key={err}>{err}</span>;
+              })
+          : null}
+      </p>
       <DefaultInput
         name={'confirm'}
         ref={confirmInputRef}
         description={'Confirm password: '}
-        type={'text'}
+        type={'password'}
       />
       <p>{errors.confirm ? errors.confirm : null}</p>
       <div>

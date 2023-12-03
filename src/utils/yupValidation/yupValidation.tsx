@@ -3,11 +3,11 @@ import * as yup from 'yup';
 export const password = yup
   .string()
   .required('Password is required')
-  .matches(/\d+/, { message: { number: 'One Digit' } })
-  .matches(/[a-z]+/, { message: { lowercase: 'One letter' } })
-  .matches(/[A-Z]+/, { message: { uppercase: 'One capital letter' } })
+  .matches(/\d+/, { message: { number: 'One Digit ' } })
+  .matches(/[a-z]+/, { message: { lowercase: 'One letter ' } })
+  .matches(/[A-Z]+/, { message: { uppercase: 'One capital letter ' } })
   .matches(/[!@#$%^&*()-+]+/, {
-    message: { special: 'One symbol' },
+    message: { special: 'One symbol ' },
   });
 
 const schema = yup
@@ -52,5 +52,19 @@ const schema = yup
       .matches(/^[a-zA-Z]+$/, 'Should not be empty'),
   })
   .required();
+
+export const passValidation = (pass: string) =>
+  password.validate(pass, { abortEarly: false }).catch(({ errors }) => {
+    const validationErrors = errors.reduce(
+      (acc: { [x: string]: string }, error: Record<string, string>) => {
+        const [key, value] = Object.entries(error)[0];
+        acc[key] = value;
+        console.log(acc);
+        return acc;
+      },
+      {}
+    );
+    return Promise.resolve({ errors: validationErrors });
+  });
 
 export default schema;
