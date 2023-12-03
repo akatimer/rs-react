@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import formDataCards from './slice/formDataCardsSlice';
 import Countries from './slice/countrySlice';
+import formDataCards from './slice/formDataCardsSlice';
 import formControledDataCards from './slice/formControledDataCardsSlice';
 
 const store = configureStore({

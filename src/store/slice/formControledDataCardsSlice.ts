@@ -23,7 +23,7 @@ const initialState: CardsState = {
 };
 
 const formControledDataCards = createSlice({
-  name: 'cards',
+  name: 'cardsControled',
   initialState,
   reducers: {
     setCards(state, action: PayloadAction<CardsType>) {

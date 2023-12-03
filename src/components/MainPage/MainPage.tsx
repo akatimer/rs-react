@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useAppSelector } from '../../store/hooks';
 import { RootState } from '../../store/store';
 import Cards from '../Card/Card';
+import './main-page.css';
 
 const MainPage: React.FC = (): JSX.Element => {
   const cardData = useAppSelector((state: RootState) => state.cards.cards);
@@ -16,7 +17,7 @@ const MainPage: React.FC = (): JSX.Element => {
   );
   const imagesControl = [...imagesContr].reverse();
 
-  console.log(cardData, cardDataControl);
+  console.log(cardData, cardDataControl, images, imagesContr);
   return (
     <>
       <div className="link-container">

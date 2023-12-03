@@ -1,5 +1,16 @@
-import { CardsType } from '../../store/slice/formDataCardsSlice';
 import './card.css';
+
+type CardsType = {
+  name: string;
+  age: string;
+  email: string;
+  password: string;
+  confirm: string;
+  gender: string;
+  terms?: boolean;
+  image?: string | null | File;
+  country: string;
+};
 
 type CardProps = {
   card: CardsType;
