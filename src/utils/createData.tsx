@@ -3,8 +3,8 @@ type createDataType = {
   age: number;
   email: string;
   password: string;
-  gender: 'male' | 'female';
-  terms: boolean;
+  gender: string;
+  terms: string;
   pic: string;
   county: string;
 };
@@ -14,8 +14,8 @@ const createData = (
   age: number,
   email: string,
   password: string,
-  gender: 'male' | 'female',
-  terms: boolean,
+  gender: string,
+  terms: string,
   pic: string,
   county: string
 ): createDataType => {
