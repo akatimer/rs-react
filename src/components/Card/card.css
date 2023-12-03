@@ -1,0 +1,6 @@
+.card-image {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  background-size: cover;
+}
