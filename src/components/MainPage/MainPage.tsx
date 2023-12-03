@@ -6,9 +6,17 @@ import Cards from '../Card/Card';
 const MainPage: React.FC = (): JSX.Element => {
   const cardData = useAppSelector((state: RootState) => state.cards.cards);
   const images = useAppSelector((state: RootState) => state.cards.images);
-  console.log(cardData);
   const imagesUncontrol = [...images].reverse();
 
+  const cardDataControl = useAppSelector(
+    (state: RootState) => state.controledCards.cards
+  );
+  const imagesContr = useAppSelector(
+    (state: RootState) => state.controledCards.images
+  );
+  const imagesControl = [...imagesContr].reverse();
+
+  console.log(cardData, cardDataControl);
   return (
     <>
       <div className="link-container">
@@ -28,7 +36,18 @@ const MainPage: React.FC = (): JSX.Element => {
             );
           })}
         </div>
-        <div className="wrapper__cards_controled"></div>
+        <div className="wrapper__cards_controled">
+          {[...cardDataControl].reverse().map((card, i) => {
+            return (
+              <Cards
+                card={card}
+                key={i}
+                image={imagesControl[i]}
+                lastUpdate={i === 0 ? 'lastUpdate' : ''}
+              />
+            );
+          })}
+        </div>
       </div>
     </>
   );

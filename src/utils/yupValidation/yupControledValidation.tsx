@@ -33,19 +33,17 @@ const schema = yup
     gender: yup.string().required('Should not be empty5'),
     terms: yup.boolean().oneOf([true], 'Terms & Conditions must be accepted'),
     image: yup
-      .mixed<File>()
+      .mixed()
       .test('fileSize', 'File size must be less than 1MB', (value) => {
-        if (value) {
-          const size: number = value.size;
-          return size <= 1024000;
-        }
+        return value instanceof FileList && value.length > 0
+          ? value[0].size <= 1024000
+          : false;
       })
-      .test('fileType', 'File must be .PNG or .JPEG', (value) => {
-        if (value) {
-          const type = value.type;
-          return type == 'image/png' || type == 'image/jpeg';
-        }
-      }),
+      .test('fileType', 'Must be .JPEG or .PNG', (value) =>
+        value instanceof FileList && value.length > 0
+          ? ['image/jpeg', 'image/png'].includes(value[0].type)
+          : false
+      ),
     country: yup
       .string()
       .required('Should not be empty')

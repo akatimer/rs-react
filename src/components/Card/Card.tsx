@@ -12,7 +12,6 @@ const Card: React.FC<CardProps> = ({
   image,
   lastUpdate,
 }): JSX.Element => {
-  console.log(card, image, lastUpdate, 123123123);
   return (
     <div style={lastUpdate ? { border: '1px solid orange' } : {}}>
       <p>Name: {card.name}</p>

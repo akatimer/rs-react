@@ -1,23 +1,17 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 interface CountryState {
   countryArr: string[];
 }
 
 const initialState: CountryState = {
-  countryArr: ['USA', 'CANADA', 'VOMBAT', 'UTKONOS'],
+  countryArr: ['USA', 'CANADA', 'POLAND', 'LITHUANIA'],
 };
 
 const Countries = createSlice({
   name: 'countryArr',
   initialState,
-  reducers: {
-    // setCountyArr(state, action: PayloadAction<string>) {
-    //   state.countryArr.push(action.payload);
-    // },
-  },
+  reducers: {},
 });
-
-// export const { setCountyArr } = formDataCards.actions;
 
 export default Countries;
